@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincent är Goat</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 18px 40px;
+            font-size: 22px;
+            font-weight: bold;
+
+            background: #00c853;
+            color: white;
+
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00a844;
+        }
+
+        #counter {
+            margin-top: 25px;
+            font-size: 25px;
+        }
+
+        #status {
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>VINcent ÄR GOAT 🐐</h1>
+
+    <button id="clickButton">
+        CLICK ME
+    </button>
+
+    <div id="counter">
+        Clicks: 0 / 10
+    </div>
+
+    <div id="status">
+        Click 10 times to download 20 random files.
+    </div>
+
+
+    <script>
+
+        let clicks = 0;
+
+        const button = document.getElementById("clickButton");
+        const counter = document.getElementById("counter");
+        const status = document.getElementById("status");
+
+
+        // Random words
+        const words = [
+            "apple",
+            "banana",
+            "pizza",
+            "computer",
+            "window",
+            "ocean",
+            "mountain",
+            "dragon",
+            "cat",
+            "dog",
+            "elephant",
+            "rocket",
+            "moon",
+            "sun",
+            "rain",
+            "house",
+            "school",
+            "car",
+            "bicycle",
+            "phone",
+            "keyboard",
+            "chair",
+            "table",
+            "forest",
+            "river",
+            "castle",
+            "robot",
+            "airplane",
+            "sandwich",
+            "cookie",
+            "coffee",
+            "water",
+            "book",
+            "pencil",
+            "shoe",
+            "backpack",
+            "island",
+            "cloud",
+            "star",
+            "planet",
+            "guitar",
+            "football",
+            "basketball",
+            "burger",
+            "tree",
+            "flower",
+            "bird",
+            "fish",
+            "turtle",
+            "pizza",
+            "goat",
+            "chair",
+            "lamp",
+            "door",
+            "bottle",
+            "camera",
+            "headphones",
+            "television",
+            "keyboard",
+            "mouse",
+            "sand",
+            "snow",
+            "fire",
+            "ice",
+            "thunder",
+            "lightning",
+            "banana",
+            "orange",
+            "watermelon"
+        ];
+
+
+        // Places
+        const places = [
+            "London",
+            "Paris",
+            "Tokyo",
+            "New York",
+            "Stockholm",
+            "Berlin",
+            "Rome",
+            "Madrid",
+            "Sydney",
+            "Toronto",
+            "Dubai",
+            "Oslo",
+            "Gothenburg",
+            "Copenhagen",
+            "Helsinki"
+        ];
+
+
+        // Randomly choose something
+        function randomItem(array) {
+            return array[
+                Math.floor(Math.random() * array.length)
+            ];
+        }
+
+
+        // Random number
+        function randomNumber() {
+            return Math.floor(
+                Math.random() * 1000000000
+            );
+        }
+
+
+        // Create one random readable line
+        function randomLine() {
+
+            const type =
+                Math.floor(Math.random() * 8);
+
+
+            if (type === 0) {
+                return (
+                    randomItem(words) +
+                    " " +
+                    randomItem(words) +
+                    " " +
+                    randomItem(words)
+                );
+            }
+
+
+            if (type === 1) {
+                return (
+                    "I found a " +
+                    randomItem(words) +
+                    " near the " +
+                    randomItem(words) +
+                    "."
+                );
+            }
+
+
+            if (type === 2) {
+                return (
+                    randomItem(places) +
+                    " - " +
+                    randomItem(words) +
+                    " - " +
+                    randomNumber()
+                );
+            }
+
+
+            if (type === 3) {
+                return (
+                    "The " +
+                    randomItem(words) +
+                    " was sitting next to the " +
+                    randomItem(words) +
+                    "."
+                );
+            }
+
+
+            if (type === 4) {
+                return (
+                    randomItem(words) +
+                    " " +
+                    randomNumber() +
+                    " " +
+                    randomItem(words)
+                );
+            }
+
+
+            if (type === 5) {
+                return (
+                    "Vincent är goat. " +
+                    randomItem(words) +
+                    " " +
+                    randomItem(words)
+                );
+            }
+
+
+            if (type === 6) {
+                return (
+                    "Something happened in " +
+                    randomItem(places) +
+                    " involving a " +
+                    randomItem(words) +
+                    "."
+                );
+            }
+
+
+            return (
+                randomItem(words) +
+                ", " +
+                randomItem(words) +
+                ", " +
+                randomItem(words) +
+                "!"
+            );
+        }
+
+
+        // Generate one file
+        function generateFile(fileNumber) {
+
+            let content = "";
+
+            // Number of random lines in each file
+            const numberOfLines = 100000;
+
+
+            for (let i = 0; i < numberOfLines; i++) {
+
+                content += randomLine() + "\n";
+
+            }
+
+
+            const blob = new Blob(
+                [content],
+                {
+                    type: "text/plain"
+                }
+            );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const link =
+                document.createElement("a");
+
+
+            link.href = url;
+
+
+            // File names
+            link.download =
+                `vincent-ar-goat-${fileNumber}.txt`;
+
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+
+            URL.revokeObjectURL(url);
+        }
+
+
+        // Generate all 20 files
+        function generateFiles() {
+
+            status.textContent =
+                "Generating files...";
+
+
+            setTimeout(() => {
+
+                for (let i = 1; i <= 20; i++) {
+
+                    generateFile(i);
+
+                    status.textContent =
+                        `Generated ${i} / 20 files`;
+
+                }
+
+
+                status.textContent =
+                    "Done! 20 Vincent är goat files downloaded.";
+
+            }, 100);
+        }
+
+
+        // Button
+        button.addEventListener(
+            "click",
+            () => {
+
+                clicks++;
+
+
+                counter.textContent =
+                    `Clicks: ${clicks} / 10`;
+
+
+                if (clicks >= 10) {
+
+                    generateFiles();
+
+
+                    clicks = 0;
+
+
+                    counter.textContent =
+                        "Clicks: 0 / 10";
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
